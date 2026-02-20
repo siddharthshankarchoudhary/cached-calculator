@@ -17,11 +17,11 @@ public class MultiplicationService {
 
     public double execute(double num1, double num2) {
         String cacheKey = String.format("%s %s %s", CalculatorCacheKey.MULTIPLY, num1, num2);
-        if(calculatorCache.calculatedCache.containsKey(cacheKey)) {
-            return calculatorCache.calculatedCache.get(cacheKey);
+        if(calculatorCache.containsKey(cacheKey)) {
+            return calculatorCache.get(cacheKey);
         } else {
             double multiplication = multiply(num1, num2);
-            calculatorCache.calculatedCache.put(cacheKey, multiplication);
+            calculatorCache.put(cacheKey, multiplication);
             return multiplication;
         }
     }

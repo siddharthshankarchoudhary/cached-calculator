@@ -17,11 +17,11 @@ public class AdditionService {
 
     public double execute(double num1, double num2) {
         String cacheKey = String.format("%s %s %s", CalculatorCacheKey.ADD, num1, num2);
-        if(calculatorCache.calculatedCache.containsKey(cacheKey)) {
-            return calculatorCache.calculatedCache.get(cacheKey);
+        if(calculatorCache.containsKey(cacheKey)) {
+            return calculatorCache.get(cacheKey);
         } else {
             double sum = add(num1, num2);
-            calculatorCache.calculatedCache.put(cacheKey, sum);
+            calculatorCache.put(cacheKey, sum);
             return sum;
         }
     }
