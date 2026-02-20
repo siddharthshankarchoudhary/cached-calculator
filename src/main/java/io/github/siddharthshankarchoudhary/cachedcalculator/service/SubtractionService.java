@@ -1,10 +1,28 @@
 package io.github.siddharthshankarchoudhary.cachedcalculator.service;
 
+import io.github.siddharthshankarchoudhary.cachedcalculator.model.CalculatorCacheKey;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SubtractionService {
-    public double execute(double num1, double num2) {
+    private final CalculatorCache calculatorCache;
+
+    SubtractionService(CalculatorCache calculatorCache) {
+        this.calculatorCache = calculatorCache;
+    }
+
+    private double subtract(double num1, double num2) {
         return num1 - num2;
+    }
+
+    public double execute(double num1, double num2) {
+        String cacheKey = String.format("%s %s %s", CalculatorCacheKey.SUBTRACT, num1, num2);
+        if(calculatorCache.calculatedCache.containsKey(cacheKey)) {
+            return calculatorCache.calculatedCache.get(cacheKey);
+        } else {
+            double multiplication = subtract(num1, num2);
+            calculatorCache.calculatedCache.put(cacheKey, multiplication);
+            return multiplication;
+        }
     }
 }
